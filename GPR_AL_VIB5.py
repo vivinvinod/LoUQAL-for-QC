@@ -380,8 +380,8 @@ def multi_fidelity_AL(X_train, y_train_low, y_train_high,
     return maes,highest_diff,training_size, rel_maes
 
 def SF_main(mol='SiH4'):
-    X = np.load(f'/home/vvinod/2025/BigDatasets/VIB5/{mol}_CM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2025/BigDatasets/VIB5/RAWDATA/{mol}_CCSD-T.dat') #ccsd(t)ccpvdz
+    X = np.load(f'VIB5/{mol}_CM.npy')
+    y_high = np.loadtxt(f'VIB5/{mol}_CCSD-T.dat') #ccsd(t)ccpvdz
     
 
     X,y_high = shuffle(X,y_high,random_state=42)
@@ -405,8 +405,8 @@ def SF_main(mol='SiH4'):
     np.save(f'ModelData/VIB5_{mol}_training_loss.npy',training_size)
 
 def ensemble_main(mol='CH3Cl'):
-    X = np.load(f'/home/vvinod/2025/BigDatasets/VIB5/{mol}_CM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2025/BigDatasets/VIB5/RAWDATA/{mol}_CCSD-T.dat') #ccsd(t)ccpvdz
+    X = np.load(f'VIB5/{mol}_CM.npy')
+    y_high = np.loadtxt(f'VIB5/{mol}_CCSD-T.dat') #ccsd(t)ccpvdz
     
     X,y_high = shuffle(X,y_high,random_state=42)
     X = np.copy(X[:15000])
@@ -427,8 +427,8 @@ def ensemble_main(mol='CH3Cl'):
     #np.save(f'ModelData/VIB5_{mol}_training_loss.npy',training_size)
 
 def var_main(mol='CH3Cl'):
-    X = np.load(f'/home/vvinod/2025/BigDatasets/VIB5/{mol}_CM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2025/BigDatasets/VIB5/RAWDATA/{mol}_CCSD-T.dat') #ccsd(t)
+    X = np.load(f'VIB5/{mol}_CM.npy')
+    y_high = np.loadtxt(f'VIB5/{mol}_CCSD-T.dat') #ccsd(t)
     X,y_high = shuffle(X,y_high,random_state=42)
     X = np.copy(X[:15000])
     y_high = np.copy(y_high[:15000])
@@ -448,8 +448,8 @@ def var_main(mol='CH3Cl'):
     np.save(f'ModelData/var_VIB5_{mol}_training_size.npy',training_size)
 
 def random_main(mol='CH3Cl'):
-    X = np.load(f'/home/vvinod/2025/BigDatasets/VIB5/{mol}_CM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2025/BigDatasets/VIB5/RAWDATA/{mol}_CCSD-T.dat')
+    X = np.load(f'VIB5/{mol}_CM.npy')
+    y_high = np.loadtxt(f'VIB5/{mol}_CCSD-T.dat')
     
     X,y_high = shuffle(X,y_high,random_state=42)
     X = np.copy(X[:15000])
@@ -466,10 +466,10 @@ def random_main(mol='CH3Cl'):
     np.save(f'ModelData/random_VIB5_{mol}_training_size.npy',training_size)
     
 def MF_main(mol='CH3Cl',method='ccpvdz'):
-    X = np.load(f'/home/vvinod/2025/BigDatasets/VIB5/{mol}_CM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2025/BigDatasets/VIB5/RAWDATA/{mol}_CCSD-T.dat') #ccsd(t)
+    X = np.load(f'VIB5/{mol}_CM.npy')
+    y_high = np.loadtxt(f'VIB5/{mol}_CCSD-T.dat') #ccsd(t)
     
-    y_low = np.loadtxt(f'/home/vvinod/2025/BigDatasets/VIB5/RAWDATA/{mol}_{method}.dat')
+    y_low = np.loadtxt(f'VIB5/{mol}_{method}.dat')
     
     X,y_high,y_low = shuffle(X,y_high,y_low,random_state=42)
     X = np.copy(X[:15000])
@@ -494,12 +494,12 @@ def MF_main(mol='CH3Cl',method='ccpvdz'):
     np.save(f'ModelData/mf_VIB5_{mol}_{method}_training_size.npy',training_size)
     
 if __name__=='__main__':
-    #methods = ['HF-TZ']#['MP2','HF-QZ','HF-TZ']
-    #SF_main(mol='CH3Cl')
-    # var_main(mol='CH3Cl')
-    #random_main(mol='SiH4')
+    methods = ['HF-TZ']#['MP2','HF-QZ','HF-TZ']
+    SF_main(mol='CH3Cl')
+    var_main(mol='CH3Cl')
+    random_main(mol='SiH4')
     ensemble_main(mol='CH3Cl')
-    # for m in methods:
-        # MF_main(mol='CH3Cl',method=m)
+    for m in methods:
+        MF_main(mol='CH3Cl',method=m)
 
 

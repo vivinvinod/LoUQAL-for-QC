@@ -364,8 +364,8 @@ def multi_fidelity_AL(X_train, y_train_low, y_train_high,
     return maes,highest_diff,training_size
 
 def SF_main(mol,prop='SCF'):
-    X = np.load(f'/home/vvinod/2024/QeMFi/MFML/Reps/{mol}_CM.npy')
-    y_high = np.load(f'/home/vvinod/2024/QeMFi/dataset/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
+    X = np.load(f'QeMFi/{mol}_CM.npy')
+    y_high = np.load(f'QeMFi/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
     y_high = y_high - np.mean(y_high)
     
 
@@ -384,8 +384,8 @@ def SF_main(mol,prop='SCF'):
 
 
 def ensemble_main(mol,prop='SCF'):
-    X = np.load(f'/home/vvinod/2024/QeMFi/MFML/Reps/{mol}_CM.npy')
-    y_high = np.load(f'/home/vvinod/2024/QeMFi/dataset/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
+    X = np.load(f'QeMFi/{mol}_CM.npy')
+    y_high = np.load(f'QeMFi/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
     y_high = y_high - np.mean(y_high)
 
     X_train, X_test, y_train_high, y_test_high = train_test_split(X, y_high, random_state=42, 
@@ -403,8 +403,8 @@ def ensemble_main(mol,prop='SCF'):
 
 
 def var_main(mol,prop='SCF'):
-    X = np.load(f'/home/vvinod/2024/QeMFi/MFML/Reps/{mol}_CM.npy')
-    y_high = np.load(f'/home/vvinod/2024/QeMFi/dataset/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
+    X = np.load(f'QeMFi/{mol}_CM.npy')
+    y_high = np.load(f'QeMFi/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
     y_high = y_high - np.mean(y_high)
 
     X_train, X_test, y_train_high, y_test_high = train_test_split(X,y_high,random_state=42,train_size=0.9) #1500 test
@@ -420,8 +420,8 @@ def var_main(mol,prop='SCF'):
     np.save(f'ModelData/var_{mol}_{prop}_training_size.npy',training_size)
 
 def random_main(mol,prop='SCF'):
-    X = np.load(f'/home/vvinod/2024/QeMFi/MFML/Reps/{mol}_CM.npy')
-    y_high = np.load(f'/home/vvinod/2024/QeMFi/dataset/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
+    X = np.load(f'QeMFi/{mol}_CM.npy')
+    y_high = np.load(f'QeMFi/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
     y_high = y_high - np.mean(y_high)
 
     X_train, X_test, y_train_high, y_test_high = train_test_split(X,y_high,random_state=42,train_size=0.9) #1500 test
@@ -433,10 +433,10 @@ def random_main(mol,prop='SCF'):
     np.save(f'ModelData/random_{mol}_{prop}_training_size.npy',training_size)
     
 def MF_main(mol,prop='SCF',level=0):
-    X = np.load(f'/home/vvinod/2024/QeMFi/MFML/Reps/{mol}_CM.npy')
-    y_high = np.load(f'/home/vvinod/2024/QeMFi/dataset/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
+    X = np.load(f'QeMFi/{mol}_CM.npy')
+    y_high = np.load(f'QeMFi/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,-1,0] #TZVP
     y_high = y_high - np.mean(y_high)
-    y_low = np.load(f'/home/vvinod/2024/QeMFi/dataset/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,level,0] #SVP
+    y_low = np.load(f'QeMFi/QeMFi_{mol}.npz',allow_pickle=True)[prop][:,level,0] #SVP
     y_low = y_low - np.mean(y_low)
 
     X_train, X_test, y_train_low, y_test_low, y_train_high, y_test_high = train_test_split(X,y_low,y_high,random_state=42,train_size=0.9) #1500 test
@@ -456,7 +456,7 @@ if __name__=='__main__':
     mol = sys.argv[1] # Get the molecule name from the first argument
     level=1 #0-sto3g, 1-321g, 2-631g, 3-svp
     ensemble_main(mol=mol,prop='EV')
-    #SF_main(mol,prop)
-    #var_main(mol,prop)
-    #random_main(mol,prop)
-    #MF_main(mol,prop,level)
+    SF_main(mol,prop)
+    var_main(mol,prop)
+    random_main(mol,prop)
+    MF_main(mol,prop,level)

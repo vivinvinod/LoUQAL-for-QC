@@ -358,8 +358,8 @@ def multi_fidelity_AL(X_train, y_train_low, y_train_high,
     return maes,highest_diff,training_size, rel_maes
 
 def SF_main(basis='ccpvdz'):
-    X = np.load('/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/GlobalSLATM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/E_{basis}.txt')[:,2] #ccsd(t)-basis
+    X = np.load('QM7b/GlobalSLATM.npy')
+    y_high = np.loadtxt(f'QM7b/E_{basis}.txt')[:,2] #ccsd(t)-basis
     
     y_high = y_high - np.mean(y_high)
     
@@ -379,8 +379,8 @@ def SF_main(basis='ccpvdz'):
     np.save(f'ModelData/QM7b_{basis}_training_loss.npy',training_size)
 
 def ensemble_main(basis):
-    X = np.load('/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/GlobalSLATM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/E_{basis}.txt')[:,2] #TZVP
+    X = np.load('QM7b/GlobalSLATM.npy')
+    y_high = np.loadtxt(f'QM7b/E_{basis}.txt')[:,2] #TZVP
     y_high = y_high - np.mean(y_high)
 
     y_high = y_high - np.mean(y_high)
@@ -401,8 +401,8 @@ def ensemble_main(basis):
 
     
 def var_main(basis='ccpvdz'):
-    X = np.load('/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/GlobalSLATM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/E_{basis}.txt')[:,2] #ccsd(t)ccpvdz
+    X = np.load('QM7b/GlobalSLATM.npy')
+    y_high = np.loadtxt(f'QM7b/E_{basis}.txt')[:,2] #ccsd(t)ccpvdz
     
     y_high = y_high - np.mean(y_high)
 
@@ -420,8 +420,8 @@ def var_main(basis='ccpvdz'):
     np.save(f'ModelData/var_QM7b_{basis}_training_size.npy',training_size)
 
 def random_main(basis='ccpvdz'):
-    X = np.load('/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/GlobalSLATM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/E_{basis}.txt')[:,2] #ccsd(t)
+    X = np.load('QM7b/GlobalSLATM.npy')
+    y_high = np.loadtxt(f'QM7b/E_{basis}.txt')[:,2] #ccsd(t)
     
     y_high = y_high - np.mean(y_high)
 
@@ -435,9 +435,9 @@ def random_main(basis='ccpvdz'):
     np.save(f'ModelData/random_QM7b_{basis}_training_size.npy',training_size)
     
 def MF_main(basis='ccpvdz',method=0):
-    X = np.load('/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/GlobalSLATM.npy')
-    y_high = np.loadtxt(f'/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/E_{basis}.txt')[:,2] #ccsd(t)ccpvdz
-    y_low = np.loadtxt(f'/home/vvinod/2023/PropertyOptiCom/PoplePaper/RAWDATA/E_{basis}.txt')[:,method] #HF,MP2 ccpvdz
+    X = np.load('QM7b/GlobalSLATM.npy')
+    y_high = np.loadtxt(f'QM7b/E_{basis}.txt')[:,2] #ccsd(t)ccpvdz
+    y_low = np.loadtxt(f'QM7b/E_{basis}.txt')[:,method] #HF,MP2 ccpvdz
     
     y_high = y_high - np.mean(y_high)
     y_low = y_low - np.mean(y_low)
@@ -457,20 +457,10 @@ def MF_main(basis='ccpvdz',method=0):
     np.save(f'ModelData/mf_{basis}_{method}_training_size.npy',training_size)
     
 if __name__=='__main__':
-    bas = sys.argv[1] # Get the molecule name from the first argument
-    #met = int(sys.argv[2])
-    #ccpvdz 1
-    #ccpvdz 0
-    #631g 2
-    #631g 1
-    #631g 0
-    #sto3g 2
-    #sto3g 1
-    #sto3g 0
-    #SF_main('631g')
-    ensemble_main(bas)#sto3g #ccpvdz
-    #var_main('631g')
-    #random_main('631g')
-    #MF_main(basis=bas,method=met)
+    SF_main('631g')
+    ensemble_main('ccpvdz')#sto3g #ccpvdz
+    var_main('631g')
+    random_main('631g')
+    MF_main(basis=bas,method=met)
 
 

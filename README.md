@@ -27,6 +27,8 @@ This environment can now be used to run the scripts from this code repository.
 2. VIB5 - Zhang, L., et al. https://doi.org/10.1038/s41597-022-01185-w
 3. QeMFi - Vinod, V., et al. https://doi.org/10.1038/s41597-024-04247-3
 
+It is assumed that the data is downloaded into directories named `QM7b/`, `VIB5/`, and `QeMFi/` respectively. 
+
 Once downloaded, the next step is to generate molecular descriptors. In this work, two molecular descriptors are used:
 
 ## Representations Used
